@@ -39,16 +39,23 @@ for i in range(5):
     allSubjectSiz += len(mcc_show)
     print("\r" + generation_progress_bar((i + 1) / 5), end="")
 
-subjectPageData = []
+subjectData = [{},{},{},{},{}]
 fetchedSubject = 0
 print("\nfetching subjects data...")
 print(generation_progress_bar(0), end="")
 for i in range(5):
     for j in range(len(subjectElements[i])):
-        print(subjectElements[i][j])
         try:
-            page = req.get("https://syllabus.kosen-k.go.jp" + subjectElements[i][j].attrs['href'])
-            subjectPageData.append(page)
+            url = "https://syllabus.kosen-k.go.jp" + subjectElements[i][j].attrs['href']
+            page = req.get(url)
+            soup = BeautifulSoup(page.text, "html.parser")
+            tdData = soup.find_all("td")
+            subjectName = soup.find("h1").string
+            teachers = []
+            for k in soup.find_all(id="Teachers"):
+                teachers.append(k.string)
+            subjectData[i][subjectName] = {"subjectName": subjectName, "subject_id": str(i+1) + tdData[10].string, "professor": teachers, "url":url}
+            print("a")
         except KeyError:
             print("error")
             #subjectPageData.append()
