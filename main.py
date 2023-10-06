@@ -15,7 +15,7 @@ def generation_progress_bar(num):
     if done == 30:
         result += "done"
     else:
-        result += str(num * 100) + "%"
+        result += str(num * 100 * 100 // 1 / 100) + "%"
     return result
 
 
@@ -55,9 +55,8 @@ for i in range(5):
             for k in soup.find_all(id="Teachers"):
                 teachers.append(k.string)
             subjectData[i][subjectName] = {"subjectName": subjectName, "subject_id": str(i+1) + tdData[10].string, "professor": teachers, "url":url}
-            print("a")
         except KeyError:
-            print("error")
+            a = 0
             #subjectPageData.append()
         fetchedSubject += 1
         print("\r" + generation_progress_bar(fetchedSubject / allSubjectSiz), end="")
