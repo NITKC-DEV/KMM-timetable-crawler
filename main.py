@@ -1,7 +1,9 @@
 import requests as req
 from bs4 import BeautifulSoup
 import re
+import time
 
+FETCH_SLEEP = 1
 
 def generation_progress_bar(num):
     result = "["
@@ -38,6 +40,7 @@ for i in range(5):
     subjectElements.append(mcc_show)
     allSubjectSiz += len(mcc_show)
     print("\r" + generation_progress_bar((i + 1) / 5), end="")
+	time.sleep(FETCH_SLEEP)
 
 subjectData = [{},{},{},{},{}]
 fetchedSubject = 0
@@ -60,3 +63,4 @@ for i in range(5):
             #subjectPageData.append()
         fetchedSubject += 1
         print("\r" + generation_progress_bar(fetchedSubject / allSubjectSiz), end="")
+		time.sleep(FETCH_SLEEP)
