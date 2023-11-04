@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-FETCH_SLEEP = 1
+FETCH_SLEEP = 0
 
 def generation_progress_bar(num):
     result = "["
@@ -40,7 +40,7 @@ for i in range(5):
     subjectElements.append(mcc_show)
     allSubjectSiz += len(mcc_show)
     print("\r" + generation_progress_bar((i + 1) / 5), end="")
-	time.sleep(FETCH_SLEEP)
+    time.sleep(FETCH_SLEEP)
 
 subjectData = [{},{},{},{},{}]
 fetchedSubject = 0
@@ -57,10 +57,15 @@ for i in range(5):
             teachers = []
             for k in soup.find_all(id="Teachers"):
                 teachers.append(k.string)
-            subjectData[i][subjectName] = {"subjectName": subjectName, "subject_id": str(i+1) + tdData[10].string, "professor": teachers, "url":url}
+            subjectData[i][subjectName] = {"subjectName": subjectName, "subject_id": str(i+1) + tdData[10].string, "professor": teachers, "url": url, "room": ""}
         except KeyError:
             a = 0
             #subjectPageData.append()
         fetchedSubject += 1
         print("\r" + generation_progress_bar(fetchedSubject / allSubjectSiz), end="")
-		time.sleep(FETCH_SLEEP)
+        time.sleep(FETCH_SLEEP)
+room = ["特別教室", "階段教室", "ネットワーク情報センター", "第1講義室", "第2講義室", "第3講義室", "第4講義室", "第5講義室", "第6講義室", "専攻科講義室A", "専攻科講義室B",
+        "専攻科ゼミ室A", "共通ゼミ室A", "マルチメディア講義室A", "マルチメディア講義室B", "多目的室A,B(講義棟C)", "M製図室", "E実験室", "D実験室",
+        "実習工場", "J計算機演習室", "J回路実験室", "コミュニティールームB", "コミュミニティルームD", "CAD室", "校内外フィールド", "C都市創造実験室・レクチャー室", "水理実験室",
+        "図書館フリー閲覧室", "学友会研修室1", "学友会館研修室2/3", "学友会館研修室4", "物理実験室", "化学実験室", "ものづくり実習室"]
+departmentAlphabet = ['M','E','D','J','C']
