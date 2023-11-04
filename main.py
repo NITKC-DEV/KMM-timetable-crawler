@@ -83,8 +83,7 @@ fetchedSubject = 0
 print("\nfetching subjects data...")
 print(generation_progress_bar(0), end="")
 for i in range(5):
-    # for j in range(len(subjectElements[i])):
-    for j in range(1):
+    for j in range(len(subjectElements[i])):
         try:
             url = "https://syllabus.kosen-k.go.jp" + subjectElements[i][j].attrs['href']
             page = req.get(url)
@@ -132,4 +131,3 @@ for i in range(len(subjectData)):
     button1.grid(row=0, column=1)
     button2.grid(row=0, column=2)
     root.mainloop()
-
